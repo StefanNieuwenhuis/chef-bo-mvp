@@ -3,7 +3,8 @@ name: Bug
 description: Report a defect with expected and actual behavior.
 title: "CHB-XXX: "
 labels: ["bug"]
-assignees: [@stefannieuwenhuis]
+assignees:
+  - stefannieuwenhuis
 ---
 
 ## Summary
