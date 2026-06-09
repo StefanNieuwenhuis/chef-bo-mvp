@@ -3,7 +3,8 @@ name: Feature
 description: Propose a new product or engineering feature.
 title: "CHB-XXX: "
 labels: ["feature"]
-assignees: [@stefannieuwenhuis]
+assignees:
+  - stefannieuwenhuis
 ---
 
 ## Summary
