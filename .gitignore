@@ -1,11 +1,11 @@
-# Environment
-.env
-
 # Nestjs specific
 /dist
 /node_modules
 /build
 /tmp
+
+# Prisma specific
+src/generated/prisma
 
 # Logs
 logs
