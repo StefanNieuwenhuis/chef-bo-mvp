@@ -3,7 +3,8 @@ name: Spike
 description: Time-boxed research to reduce uncertainty before implementation.
 title: "CHB-XXX: "
 labels: ["spike"]
-assignees: [@stefannieuwenhuis]
+assignees:
+  - stefannieuwenhuis
 ---
 
 ## Research question
