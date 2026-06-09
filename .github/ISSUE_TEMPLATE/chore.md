@@ -3,7 +3,8 @@ name: Chore
 description: Non-feature maintenance, cleanup, or repository housekeeping.
 title: "CHB-XXX: "
 labels: ["chore"]
-assignees: [@stefannieuwenhuis]
+assignees:
+  - stefannieuwenhuis
 ---
 
 ## Summary
