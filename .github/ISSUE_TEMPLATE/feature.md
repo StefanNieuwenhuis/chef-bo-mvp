@@ -1,8 +1,9 @@
 ---
 name: Feature
-description: Propose a new product or engineering feature.
+about: Propose a new product or engineering feature.
 title: "CHB-XXX: "
-labels: ["feature"]
+labels:
+  - feature
 assignees:
   - stefannieuwenhuis
 ---
