@@ -1,8 +1,9 @@
 ---
 name: Spike
-description: Time-boxed research to reduce uncertainty before implementation.
+about: Time-boxed research to reduce uncertainty before implementation.
 title: "CHB-XXX: "
-labels: ["spike"]
+labels:
+  - spike
 assignees:
   - stefannieuwenhuis
 ---
