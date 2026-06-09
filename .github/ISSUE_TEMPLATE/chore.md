@@ -1,8 +1,9 @@
 ---
 name: Chore
-description: Non-feature maintenance, cleanup, or repository housekeeping.
+about: Non-feature maintenance, cleanup, or repository housekeeping.
 title: "CHB-XXX: "
-labels: ["chore"]
+labels:
+  - chore
 assignees:
   - stefannieuwenhuis
 ---
