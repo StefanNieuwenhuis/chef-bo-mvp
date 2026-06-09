@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: chef-bo-db
+    hostname: chef-bo-db
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U chef_bo -d chef_bo" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - chef_bo_postgres_data:/var/lib/postgresql
+    networks:
+      - chef_bo_network
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    hostname: pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    env_file:
+      - .env
+    networks:
+      chef_bo_network:
+
+volumes:
+  chef_bo_postgres_data:
+
+networks:
+  chef_bo_network:
+    driver: bridge
