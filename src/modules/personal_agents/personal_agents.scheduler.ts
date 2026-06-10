@@ -17,6 +17,7 @@ export class PersonalAgentsScheduler {
   @Cron(CronExpression.EVERY_MINUTE)
   async recoverPendingAgents() {
     const stuckAgents = await this.prisma.personalAgent.findMany({
+      select: { id: true, householdMemberId: true },
       where: {
         status: 'PENDING',
         createdAt: { lt: new Date(Date.now() - 60_000) }, // older than 1 minute
