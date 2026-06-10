@@ -16,8 +16,8 @@ CREATE TABLE "household_members" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "household_id" UUID NOT NULL,
     "name" TEXT NOT NULL,
-    "allergies" JSONB NOT NULL DEFAULT '[]',
-    "dietary_rules" JSONB NOT NULL DEFAULT '[]',
+    "allergies" JSONB,
+    "dietary_rules" JSONB,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(6) NOT NULL,
 
