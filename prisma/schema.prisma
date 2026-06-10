@@ -12,3 +12,34 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+// ---------------------------------------------------------------------
+// Households schema
+// ---------------------------------------------------------------------
+model Household {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  members HouseholdMember[]
+
+  @@map("households")
+}
+
+// ---------------------------------------------------------------------
+// Households Members schema
+// ---------------------------------------------------------------------
+model HouseholdMember {
+  id             String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  householdId    String          @map("household_id") @db.Uuid
+  name           String
+  allergies      Json            @default("[]") @map("allergies") @db.JsonB
+  dietaryRules   Json            @default("[]") @map("dietary_rules") @db.JsonB
+  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
+  household      Household       @relation(fields: [householdId], references: [id], onDelete: Cascade)
+
+  @@index([householdId])
+  @@map("household_members")
+}
