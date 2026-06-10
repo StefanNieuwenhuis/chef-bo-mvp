@@ -22,7 +22,10 @@ describe('PersonalAgentsScheduler', () => {
       add: jest.fn(),
     };
 
-    scheduler = new PersonalAgentsScheduler(prisma as never, agentsQueue as never);
+    scheduler = new PersonalAgentsScheduler(
+      prisma as never,
+      agentsQueue as never,
+    );
   });
 
   it('queries pending agents older than one minute', async () => {

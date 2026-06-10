@@ -8,11 +8,10 @@ import { Queue } from 'bullmq';
 export class PersonalAgentsScheduler {
   constructor(
     private readonly prisma: PrismaService,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
     @InjectQueue('personal-agents-queue') private readonly agentsQueue: Queue,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   @Cron(CronExpression.EVERY_MINUTE)
   async recoverPendingAgents() {
     const stuckAgents = await this.prisma.personalAgent.findMany({
@@ -24,7 +23,6 @@ export class PersonalAgentsScheduler {
 
     await Promise.allSettled(
       stuckAgents.map((agent) =>
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-member-access
         this.agentsQueue.add(
           'recover-agent',
           { agentId: agent.id, householdMemberId: agent.householdMemberId },
