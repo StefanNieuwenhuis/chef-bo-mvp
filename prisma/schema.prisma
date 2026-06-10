@@ -28,7 +28,7 @@ model Household {
 }
 
 // ---------------------------------------------------------------------
-// Households Members schema
+// Household members schema
 // ---------------------------------------------------------------------
 model HouseholdMember {
   id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
