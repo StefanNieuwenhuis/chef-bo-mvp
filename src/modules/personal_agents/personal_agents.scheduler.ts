@@ -22,7 +22,6 @@ export class PersonalAgentsScheduler {
         status: 'PENDING',
         createdAt: { lt: new Date(Date.now() - 60_000) }, // older than 1 minute
       },
-      select: { id: true, householdMemberId: true },
     });
 
     const results = await Promise.allSettled(
