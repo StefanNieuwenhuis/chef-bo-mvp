@@ -9,7 +9,7 @@ export class PersonalAgentsScheduler {
   constructor(
     private readonly prisma: PrismaService,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    @InjectQueue('agents-queue') private readonly agentsQueue: Queue,
+    @InjectQueue('personal-agents-queue') private readonly agentsQueue: Queue,
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
