@@ -1,3 +1,6 @@
+-- Enable gen_random_uuid() for UUID defaults
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 -- CreateTable
 CREATE TABLE "households" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
