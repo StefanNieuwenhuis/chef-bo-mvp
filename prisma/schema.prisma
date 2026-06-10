@@ -17,9 +17,9 @@ datasource db {
 // Households schema
 // ---------------------------------------------------------------------
 model Household {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   members HouseholdMember[]
@@ -40,6 +40,29 @@ model HouseholdMember {
   updatedAt    DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
   household    Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
 
+  personalAgent PersonalAgent?
+
   @@index([householdId])
   @@map("household_members")
+}
+
+// ---------------------------------------------------------------------
+// Personal agents schema
+// ---------------------------------------------------------------------
+enum AgentStatus {
+  PENDING
+  ACTIVE
+  FAILED
+}
+
+model PersonalAgent {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  householdMemberId String          @unique @map("household_member_id") @db.Uuid
+  name              String
+  status            AgentStatus     @default(PENDING)
+  createdAt         DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime?       @updatedAt @map("updated_at") @db.Timestamptz(6)
+  householdMember   HouseholdMember @relation(fields: [householdMemberId], references: [id], onDelete: Cascade)
+
+  @@map("personal_agents")
 }
