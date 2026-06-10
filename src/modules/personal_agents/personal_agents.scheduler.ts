@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -6,6 +6,8 @@ import { Queue } from 'bullmq';
 
 @Injectable()
 export class PersonalAgentsScheduler {
+  private readonly logger = new Logger(PersonalAgentsScheduler.name);
+
   constructor(
     private readonly prisma: PrismaService,
 
@@ -19,9 +21,10 @@ export class PersonalAgentsScheduler {
         status: 'PENDING',
         createdAt: { lt: new Date(Date.now() - 60_000) }, // older than 1 minute
       },
+      select: { id: true, householdMemberId: true },
     });
 
-    await Promise.allSettled(
+    const results = await Promise.allSettled(
       stuckAgents.map((agent) =>
         this.agentsQueue.add(
           'recover-agent',
@@ -37,5 +40,13 @@ export class PersonalAgentsScheduler {
         ),
       ),
     );
+
+    results.forEach((result, index) => {
+      if (result.status === 'rejected') {
+        this.logger.error(
+          `Failed to enqueue recovery for agent ${stuckAgents[index]?.id}: ${String(result.reason)}`,
+        );
+      }
+    });
   }
 }

@@ -19,11 +19,22 @@ export class PersonalAgentsProcessor extends WorkerHost {
       `Processing job ${job.id} (${job.name}) for agent ${agentId}, member ${householdMemberId}`,
     );
 
-    await this.prisma.personalAgent.update({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      where: { id: agentId },
-      data: { status: 'ACTIVE' },
-    });
+    try {
+      await this.prisma.personalAgent.update({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        where: { id: agentId },
+        data: { status: 'ACTIVE' },
+      });
+    } catch (updateError) {
+      const errorCode = (updateError as { code?: string }).code;
+      if (errorCode === 'P2025') {
+        this.logger.warn(
+          `Agent ${agentId} not found while marking ACTIVE; skipping update.`,
+        );
+        return;
+      }
+      throw updateError;
+    }
 
     this.logger.log(`Agent ${agentId} marked ACTIVE`);
   }

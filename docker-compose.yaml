@@ -39,6 +39,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - chef_bo_network
 
 volumes:
   chef_bo_postgres_data:

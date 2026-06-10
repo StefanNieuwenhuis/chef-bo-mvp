@@ -14,7 +14,7 @@ CREATE TABLE "personal_agents" (
 );
 
 -- CreateIndex
-CREATE INDEX "personal_agents_household_member_id_idx" ON "personal_agents"("household_member_id");
+CREATE UNIQUE INDEX "personal_agents_household_member_id_key" ON "personal_agents"("household_member_id");
 
 -- AddForeignKey
 ALTER TABLE "personal_agents" ADD CONSTRAINT "personal_agents_household_member_id_fkey" FOREIGN KEY ("household_member_id") REFERENCES "household_members"("id") ON DELETE CASCADE ON UPDATE CASCADE;

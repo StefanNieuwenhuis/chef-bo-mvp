@@ -40,7 +40,7 @@ model HouseholdMember {
   updatedAt    DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
   household    Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
 
-  personalAgents PersonalAgent[]
+  personalAgent PersonalAgent?
 
   @@index([householdId])
   @@map("household_members")
@@ -57,13 +57,12 @@ enum AgentStatus {
 
 model PersonalAgent {
   id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  householdMemberId String          @map("household_member_id") @db.Uuid
+  householdMemberId String          @unique @map("household_member_id") @db.Uuid
   name              String
   status            AgentStatus     @default(PENDING)
   createdAt         DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt         DateTime?       @updatedAt @map("updated_at") @db.Timestamptz(6)
-  householdMembers  HouseholdMember @relation(fields: [householdMemberId], references: [id], onDelete: Cascade)
+  householdMember   HouseholdMember @relation(fields: [householdMemberId], references: [id], onDelete: Cascade)
 
-  @@index([householdMemberId])
   @@map("personal_agents")
 }
