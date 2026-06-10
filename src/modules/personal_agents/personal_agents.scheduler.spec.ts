@@ -35,6 +35,10 @@ describe('PersonalAgentsScheduler', () => {
     await scheduler.recoverPendingAgents();
 
     expect(prisma.personalAgent.findMany).toHaveBeenCalledWith({
+      select: {
+        id: true,
+        householdMemberId: true,
+      },
       where: {
         status: 'PENDING',
         createdAt: { lt: new Date(1_700_000_000_000 - 60_000) },
