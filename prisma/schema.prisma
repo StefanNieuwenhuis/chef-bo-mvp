@@ -20,7 +20,7 @@ model Household {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   members HouseholdMember[]
 
@@ -37,7 +37,7 @@ model HouseholdMember {
   allergies    Json?     @map("allergies") @db.JsonB
   dietaryRules Json?     @map("dietary_rules") @db.JsonB
   createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  updatedAt    DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
   household    Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
 
   @@index([householdId])

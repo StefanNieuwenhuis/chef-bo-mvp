@@ -6,7 +6,7 @@ CREATE TABLE "households" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMPTZ(6) NOT NULL,
+    "updated_at" TIMESTAMPTZ(6),
 
     CONSTRAINT "households_pkey" PRIMARY KEY ("id")
 );
@@ -19,7 +19,7 @@ CREATE TABLE "household_members" (
     "allergies" JSONB,
     "dietary_rules" JSONB,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMPTZ(6) NOT NULL,
+    "updated_at" TIMESTAMPTZ(6),
 
     CONSTRAINT "household_members_pkey" PRIMARY KEY ("id")
 );
